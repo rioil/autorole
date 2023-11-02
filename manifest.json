@@ -6,12 +6,22 @@
   "icons": {
     "48": "icons/autorole-48.png"
   },
-  "permissions": ["activeTab"],
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["dist/background.js"],
+    "persistent": false,
+    "type": "module"
+  },
   "content_scripts": [
     {
-      "matches": ["*://ou-idp.auth.osaka-u.ac.jp/idp/sso_redirect*"],
-      "js": ["autorole.js"],
+      "matches": ["*://ou-idp.auth.osaka-u.ac.jp/idp/*"],
+      "js": ["dist/content.js"],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "autorole@rioil.dev"
+    }
+  }
 }
