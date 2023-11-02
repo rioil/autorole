@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Autorole",
+  "version": "0.1",
+  "description": "Automatically select role",
+  "icons": {
+    "48": "icons/autorole-48.png"
+  },
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["*://ou-idp.auth.osaka-u.ac.jp/idp/sso_redirect*"],
+      "js": ["autorole.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
