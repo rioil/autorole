@@ -1,12 +1,12 @@
 {
   "manifest_version": 2,
   "name": "Autorole",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Automatically select role",
   "icons": {
     "48": "icons/autorole-48.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["activeTab", "storage"],
   "background": {
     "scripts": ["dist/background.js"],
     "persistent": false,
@@ -19,6 +19,15 @@
       "run_at": "document_end"
     }
   ],
+  "browser_action": {
+    "default_icon": "icons/autorole-48.png",
+    "default_title": "Autorole",
+    "default_popup": "html/popup.html"
+  },
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": true
+  },
   "browser_specific_settings": {
     "gecko": {
       "id": "autorole@rioil.dev"
