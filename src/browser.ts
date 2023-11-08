@@ -1,0 +1,1 @@
+export import browser = globalThis.browser;

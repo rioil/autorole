@@ -1,6 +1,8 @@
+import browser from "webextension-polyfill";
+
 browser.runtime.onMessage.addListener(processMessage);
 
-async function processMessage(message) {
+async function processMessage(message: Message) {
   switch (message.type) {
     case "getId":
       try {
@@ -22,11 +24,16 @@ async function processMessage(message) {
   }
 }
 
-async function getId() {
+async function getId(): Promise<string> {
   const id = await browser.storage.sync.get("id");
   return id.id;
 }
 
-async function setId(id) {
+async function setId(id: string) {
   browser.storage.sync.set({ id: id });
+}
+
+class Message {
+  type: string = "";
+  id: string = "";
 }
