@@ -4,7 +4,7 @@ import path from "path";
 const config: webpack.Configuration = {
   entry: {
     background: "./src/background.ts",
-    content: "./src/content.js",
+    content: "./src/content.ts",
   },
   module: {
     rules: [{ test: /\.tsx?$/, use: "ts-loader" }],

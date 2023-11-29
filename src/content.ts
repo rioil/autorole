@@ -1,5 +1,5 @@
-"use strict";
 import Enumerable from "linq";
+import browser from "webextension-polyfill";
 
 init();
 
@@ -10,45 +10,67 @@ async function init() {
   var table = document.querySelector("table.style_table2");
   if (table === null) {
     console.log("table not found.");
+    return;
   }
+
   const roles = Enumerable.from(table.querySelectorAll("tr").values())
     .skip(2)
-    .select(function (row) {
-      var info = Enumerable.from(row.querySelectorAll("td").values())
+    .select((row) =>
+      Enumerable.from(row.querySelectorAll("td").values())
         .skip(1)
         .take(3)
         .select(function (cell) {
-          return cell.textContent.trim();
+          return cell.textContent?.trim();
         })
-        .toArray();
-      return {
-        id: info[0],
-        affiliation: info[1],
-        status: info[2],
-      };
+        .toArray()
+    )
+    .select(function (info) {
+      if (
+        info.length === 3 &&
+        info[0] !== undefined &&
+        info[1] !== undefined &&
+        info[2] !== undefined
+      ) {
+        return new Role(info[0], info[1], info[2]);
+      } else {
+        return undefined;
+      }
     })
+    .where((role): role is Role => role !== undefined)
     .toArray();
-  await browser.runtime.sendMessage({ type: "setId", id: roles[0].id });
+
+  // 最初のロールを選択
+  const role = roles[0];
+  if (role !== undefined) {
+    await browser.runtime.sendMessage({ type: "setId", id: role.id });
+  }
 
   // 最初のラジオボタンを選択
   // TODO どのラジオボタンをデフォルトで選択するかは変更可能にする
-  var radio = document.querySelector('input[type="radio"][name="role"]');
+  var radio = document.querySelector<HTMLInputElement>(
+    'input[type="radio"][name="role"]'
+  );
   if (radio === null) {
     console.log("radio button not found.");
   } else {
-    radio.style = "accent-color: red;";
+    radio.style.accentColor = "red";
     radio.click();
   }
 
   // OKボタンの有効化
   // MEMO: 最初にdisabledをfalseにしても，その後に他の処理で無効化されてしまうので，MutationObserverで監視して強制的に有効化
-  var okButton = document.querySelector('input[type="button"][id="ok"]');
+  var okButton = document.querySelector<HTMLInputElement>(
+    'input[type="button"][id="ok"]'
+  );
   if (okButton === null) {
     console.log("OK button not found.");
   } else {
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
-        if (mutation.attributeName === "disabled") {
+        if (
+          mutation.target instanceof HTMLButtonElement &&
+          mutation.attributeName === "disabled"
+        ) {
           mutation.target.disabled = false;
           console.log("set OK button enabled forcefully.");
         }

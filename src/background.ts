@@ -2,25 +2,23 @@ import browser from "webextension-polyfill";
 
 browser.runtime.onMessage.addListener(processMessage);
 
-async function processMessage(message: Message) {
-  switch (message.type) {
-    case "getId":
-      try {
-        const id = await getId();
-        return id;
-      } catch (e) {
-        browser.error(e);
-        return null;
-      }
-    case "setId":
-      try {
-        await setId(message.id);
-      } catch (e) {
-        browser.error(e);
-      }
-      break;
-    default:
-      console.log("unknown message type: " + message.type);
+async function processMessage(message: any) {
+  if (message instanceof GetIdMessage) {
+    try {
+      const id = await getId();
+      return id;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  } else if (message instanceof SetIdMessage) {
+    try {
+      await setId(message.roleId);
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    console.log("unknown message: " + message);
   }
 }
 
@@ -30,10 +28,5 @@ async function getId(): Promise<string> {
 }
 
 async function setId(id: string) {
-  browser.storage.sync.set({ id: id });
-}
-
-class Message {
-  type: string = "";
-  id: string = "";
+  return browser.storage.sync.set({ id: id });
 }
