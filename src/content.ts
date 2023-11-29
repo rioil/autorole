@@ -1,10 +1,11 @@
 import Enumerable from "linq";
 import browser from "webextension-polyfill";
+import { GetIdMessage, SetIdMessage } from "./BackgroundMessage";
 
 init();
 
 async function init() {
-  const id = await browser.runtime.sendMessage({ type: "getId" });
+  const id = await browser.runtime.sendMessage(new GetIdMessage());
   console.log(id);
 
   var table = document.querySelector("table.style_table2");
@@ -42,7 +43,7 @@ async function init() {
   // 最初のロールを選択
   const role = roles[0];
   if (role !== undefined) {
-    await browser.runtime.sendMessage({ type: "setId", id: role.id });
+    await browser.runtime.sendMessage(new SetIdMessage(role.id));
   }
 
   // 最初のラジオボタンを選択
@@ -65,6 +66,8 @@ async function init() {
   if (okButton === null) {
     console.log("OK button not found.");
   } else {
+    okButton.focus();
+
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         if (

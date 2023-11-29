@@ -1,6 +1,6 @@
-interface BackgroundMessage {}
+export interface BackgroundMessage {}
 
-class SetIdMessage implements BackgroundMessage {
+export class SetIdMessage implements BackgroundMessage {
   /**
    * ロールID
    */
@@ -11,13 +11,4 @@ class SetIdMessage implements BackgroundMessage {
   }
 }
 
-class GetIdMessage implements BackgroundMessage {
-  /**
-   * ロールID
-   */
-  roleId: string = "";
-
-  constructor(roleId: string) {
-    this.roleId = roleId;
-  }
-}
+export class GetIdMessage implements BackgroundMessage {}

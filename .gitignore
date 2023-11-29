@@ -139,3 +139,6 @@ dist
 
 # Local History for Visual Studio Code
 .history/
+
+# output files
+output/

@@ -8,14 +8,14 @@
   },
   "permissions": ["activeTab", "storage"],
   "background": {
-    "scripts": ["dist/background.js"],
+    "scripts": ["src/background.js"],
     "persistent": false,
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["*://ou-idp.auth.osaka-u.ac.jp/idp/*"],
-      "js": ["dist/content.js"],
+      "js": ["src/content.js"],
       "run_at": "document_end"
     }
   ],

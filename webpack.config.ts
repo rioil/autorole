@@ -13,7 +13,7 @@ const config: webpack.Configuration = {
     minimize: false,
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist", "src"),
   },
 };
 
