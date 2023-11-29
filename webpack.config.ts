@@ -15,6 +15,9 @@ const config: webpack.Configuration = {
   output: {
     path: path.resolve(__dirname, "dist", "src"),
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
 };
 
 export default config;

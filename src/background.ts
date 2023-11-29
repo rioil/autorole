@@ -1,4 +1,5 @@
 import browser from "webextension-polyfill";
+import { GetIdMessage, SetIdMessage } from "./BackgroundMessage";
 
 browser.runtime.onMessage.addListener(processMessage);
 
