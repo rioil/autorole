@@ -23,7 +23,7 @@ async function processMessage(message: any) {
   }
 }
 
-async function getId(): Promise<string> {
+async function getId(): Promise<string | undefined> {
   const id = await browser.storage.sync.get("id");
   return id.id;
 }
