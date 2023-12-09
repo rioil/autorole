@@ -34,21 +34,21 @@ function enableOkButton() {
     'input[type="button"][id="ok"]'
   );
   if (okButton) {
-    okButton.focus();
-
     var observer = new MutationObserver(function (mutations) {
       mutations.forEach(function (mutation) {
         if (
-          mutation.target instanceof HTMLButtonElement &&
-          mutation.attributeName === "disabled"
+          mutation.target instanceof HTMLInputElement &&
+          mutation.attributeName === "disabled" &&
+          mutation.target.disabled
         ) {
           mutation.target.disabled = false;
-          console.log("set OK button enabled forcefully.");
         }
       });
     });
 
     observer.observe(okButton, { attributes: true });
+    okButton.disabled = false;
+    okButton.focus();
   }
 }
 
@@ -58,27 +58,24 @@ function enableOkButton() {
  * @returns ロールのリスト
  */
 function getRoles(): Role[] {
-  var table = document.querySelector("table.style_table2");
+  var table = document.querySelector<HTMLTableElement>("table.style_table2");
   if (!table) {
     return [];
   }
 
   const roles = [];
-  for (const row of Enumerable.from(table.querySelectorAll("tr").values()).skip(
-    2
-  )) {
-    const cells = row.querySelectorAll("td");
-    if (cells.length < 4) {
+  for (const row of Enumerable.from(table.rows).skip(2)) {
+    if (row.cells.length < 4) {
       continue;
     }
 
-    const radio = cells[0]?.querySelector<HTMLInputElement>(
+    const radio = row.cells[0]?.querySelector<HTMLInputElement>(
       'input[type="radio"][name="role"]'
     );
 
-    const id = cells[1]?.textContent?.trim();
-    const affiliation = cells[2]?.textContent?.trim();
-    const status = cells[3]?.textContent?.trim();
+    const id = row.cells[1]?.textContent?.trim();
+    const affiliation = row.cells[2]?.textContent?.trim();
+    const status = row.cells[3]?.textContent?.trim();
 
     if (!radio || !id || !affiliation || !status) {
       continue;
@@ -90,7 +87,7 @@ function getRoles(): Role[] {
     button.textContent = "Set as default";
     button.style.marginTop = "5px";
     button.addEventListener("click", () => setDefaultRole(role));
-    cells[0]?.appendChild(button);
+    row.cells[0]?.appendChild(button);
 
     roles.push(role);
   }
