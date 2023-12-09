@@ -1,6 +1,7 @@
 import Enumerable from "linq";
 import browser from "webextension-polyfill";
 import { GetIdMessage, SetIdMessage } from "./BackgroundMessage";
+import { Role } from "./Role";
 
 init();
 
