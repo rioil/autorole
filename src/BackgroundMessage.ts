@@ -1,6 +1,13 @@
-export interface BackgroundMessage {}
+export interface BackgroundMessage {
+  /**
+   * メッセージの種類
+   */
+  type: string;
+}
 
 export class SetIdMessage implements BackgroundMessage {
+  type: string = "SetIdMessage";
+
   /**
    * ロールID
    */
@@ -11,4 +18,6 @@ export class SetIdMessage implements BackgroundMessage {
   }
 }
 
-export class GetIdMessage implements BackgroundMessage {}
+export class GetIdMessage implements BackgroundMessage {
+  type: string = "GetIdMessage";
+}

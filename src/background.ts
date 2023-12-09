@@ -1,25 +1,27 @@
 import browser from "webextension-polyfill";
-import { GetIdMessage, SetIdMessage } from "./BackgroundMessage";
 
 browser.runtime.onMessage.addListener(processMessage);
 
 async function processMessage(message: any) {
-  if (message instanceof GetIdMessage) {
-    try {
-      const id = await getId();
-      return id;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  } else if (message instanceof SetIdMessage) {
-    try {
-      await setId(message.roleId);
-    } catch (e) {
-      console.error(e);
-    }
-  } else {
-    console.log("unknown message: " + message);
+  switch (message.type) {
+    case "GetIdMessage":
+      try {
+        const id = await getId();
+        return id;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    case "SetIdMessage":
+      try {
+        await setId(message.roleId);
+      } catch (e) {
+        console.error(e);
+      }
+      break;
+    default:
+      console.log("unknown message: " + message);
+      console.debug(message);
   }
 }
 
