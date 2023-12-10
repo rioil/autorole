@@ -31,6 +31,11 @@
           "version": "0.7",
           "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.7.xpi",
           "update_hash": "sha256:DF7D2900251AA598F6BFE476F3898DE869F3D3A2AA43C4FFBCE1336A2EEE9043"
+        },
+        {
+          "version": "1.0.0",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-1.0.0.xpi",
+          "update_hash": "sha256:87F3616D0BE5EB0A6676901AE19F82120C676D3266DDF21DCB5F2BC0C8AA3844"
         }
       ]
     }
