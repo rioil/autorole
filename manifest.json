@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Autorole",
-  "version": "0.5",
+  "version": "0.6",
   "description": "Automatically select role",
   "icons": {
     "48": "icons/autorole-48.png"
@@ -30,7 +30,8 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "autorole@rioil.dev"
+      "id": "autorole@rioil.dev",
+      "update_url": "https://rioil.dev/browser-addons/autorole/update.json"
     }
   }
 }
