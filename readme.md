@@ -4,6 +4,5 @@
 
 ```PowerShell
 npm install
-npx webpack --config webpack.config.ts --mode production
-./package.ps1
+npm run pack
 ```
