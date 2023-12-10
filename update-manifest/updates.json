@@ -1,0 +1,38 @@
+{
+  "addons": {
+    "autorole@rioil.dev": {
+      "updates": [
+        {
+          "version": "0.2",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.2.xpi",
+          "update_hash": "sha256:1D91B6913F46E278BA35BCE3A103E3FA3F3088BA08C8A87560380C8889CAD826"
+        },
+        {
+          "version": "0.3",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.3.xpi",
+          "update_hash": "sha256:77C6B56534811A50D81037381FB82F8235F7A15385825C402D85A6A220112395"
+        },
+        {
+          "version": "0.4",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.4.xpi",
+          "update_hash": "sha256:37DA3084FF3C532B77D6C2F8CFFF14A64767F3B1BF41F4C525C268875858DB8C"
+        },
+        {
+          "version": "0.5",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.5.xpi",
+          "update_hash": "sha256:64B87AA05603F8F86C0B72C2B8A7E0101D6078B11216FB64A4E2B6AC421F9A06"
+        },
+        {
+          "version": "0.6",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.6.xpi",
+          "update_hash": "sha256:105DE2AD6A695D3C00C792CB42C68447D9533A8AA0AAA1A5848B1B93780B84C8"
+        },
+        {
+          "version": "0.7",
+          "update_link": "https://rioil.dev/browser-addons/autorole/autorole-0.7.xpi",
+          "update_hash": "sha256:DF7D2900251AA598F6BFE476F3898DE869F3D3A2AA43C4FFBCE1336A2EEE9043"
+        }
+      ]
+    }
+  }
+}

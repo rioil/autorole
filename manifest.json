@@ -1,21 +1,21 @@
 {
   "manifest_version": 2,
   "name": "Autorole",
-  "version": "0.3",
+  "version": "1.0.0",
   "description": "Automatically select role",
   "icons": {
     "48": "icons/autorole-48.png"
   },
   "permissions": ["activeTab", "storage"],
   "background": {
-    "scripts": ["dist/background.js"],
+    "scripts": ["src/background.js"],
     "persistent": false,
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["*://ou-idp.auth.osaka-u.ac.jp/idp/*"],
-      "js": ["dist/content.js"],
+      "js": ["src/content.js"],
       "run_at": "document_end"
     }
   ],
@@ -30,7 +30,8 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "autorole@rioil.dev"
+      "id": "autorole@rioil.dev",
+      "update_url": "https://rioil.dev/browser-addons/autorole/updates.json"
     }
   }
 }

@@ -1,32 +1,35 @@
 import browser from "webextension-polyfill";
+import { StorageUtil } from "./storageUtil";
 
 browser.runtime.onMessage.addListener(processMessage);
 
 async function processMessage(message: any) {
-  if (message instanceof GetIdMessage) {
-    try {
-      const id = await getId();
-      return id;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  } else if (message instanceof SetIdMessage) {
-    try {
-      await setId(message.roleId);
-    } catch (e) {
-      console.error(e);
-    }
-  } else {
-    console.log("unknown message: " + message);
+  switch (message.type) {
+    case "GetIdMessage":
+      try {
+        const id = await StorageUtil.getId();
+        return id;
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    case "SetIdMessage":
+      try {
+        await StorageUtil.setId(message.roleId);
+      } catch (e) {
+        console.error(e);
+      }
+      break;
+    case "GetIsSelectFirstMessage":
+      try {
+        const isSelectFirst = await StorageUtil.getIsSelectFirst();
+        return isSelectFirst === true;
+      } catch (e) {
+        console.error(e);
+        return false;
+      }
+    default:
+      console.log("unknown message: " + message);
+      console.debug(message);
   }
-}
-
-async function getId(): Promise<string> {
-  const id = await browser.storage.sync.get("id");
-  return id.id;
-}
-
-async function setId(id: string) {
-  return browser.storage.sync.set({ id: id });
 }
