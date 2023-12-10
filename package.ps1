@@ -1,6 +1,6 @@
 # Copy files to dist folder
 Copy-Item -Path ./html/ -Destination ./dist/ -Recurse -Force
-Copy-Item -Path ./icons/ -Destination ./dist/ -Recurse -Force
+Copy-Item -Path ./icons/*.png -Destination ./dist/icons/ -Recurse -Force
 Copy-Item -Path ./manifest.json -Destination ./dist/ -Force
 
 # Compress files to xpi
