@@ -4,8 +4,8 @@ import {
   GetIdMessage,
   SetIdMessage,
   GetIsSelectFirstMessage,
-} from "./BackgroundMessage";
-import { Role } from "./Role";
+} from "./backgroundMessage";
+import { Role } from "./role";
 
 /**
  * デフォルトのロール
