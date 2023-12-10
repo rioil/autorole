@@ -1,6 +1,10 @@
 import Enumerable from "linq";
 import browser from "webextension-polyfill";
-import { GetIdMessage, SetIdMessage } from "./BackgroundMessage";
+import {
+  GetIdMessage,
+  SetIdMessage,
+  GetIsSelectFirstMessage,
+} from "./BackgroundMessage";
 import { Role } from "./Role";
 
 /**
@@ -106,21 +110,24 @@ function getRoles(): Role[] {
  */
 async function getDefaultRole(): Promise<Role | undefined> {
   const roles = getRoles();
+  // ロールが一つもなければundefinedを返す
+  if (roles[0] === undefined) {
+    return undefined;
+  }
 
   // 選択するロールを取得
   const id = await browser.runtime.sendMessage(new GetIdMessage());
-
-  if (!id) {
-    const role = roles[0];
-    if (!role) {
-      return undefined;
-    }
-    await browser.runtime.sendMessage(new SetIdMessage(role.id));
-    return role;
-  } else {
+  if (id) {
     const role = roles.find((role) => role?.id === id);
-    return role;
+    if (role) {
+      return role;
+    }
   }
+
+  const isSelectFirst = await browser.runtime.sendMessage(
+    new GetIsSelectFirstMessage()
+  );
+  return isSelectFirst ? roles[0] : undefined;
 }
 
 /**

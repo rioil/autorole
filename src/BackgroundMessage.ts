@@ -5,6 +5,9 @@ export interface BackgroundMessage {
   type: string;
 }
 
+/**
+ * デフォルトのロールIDを設定するメッセージ
+ */
 export class SetIdMessage implements BackgroundMessage {
   type: string = "SetIdMessage";
 
@@ -18,6 +21,16 @@ export class SetIdMessage implements BackgroundMessage {
   }
 }
 
+/**
+ * デフォルトのロールIDを取得するメッセージ
+ */
 export class GetIdMessage implements BackgroundMessage {
   type: string = "GetIdMessage";
+}
+
+/**
+ * ロールID不一致/未設定時に最初のロールを選択するかどうかを設定するメッセージ
+ */
+export class GetIsSelectFirstMessage implements BackgroundMessage {
+  type: string = "GetIsSelectFirstMessage";
 }
